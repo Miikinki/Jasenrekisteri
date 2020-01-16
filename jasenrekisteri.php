@@ -1,7 +1,21 @@
 <?php include('process.php'); ?>
+<?php
+include "config.php";
+
+// Check user login or not
+if(!isset($_SESSION['uname'])){
+    header('Location: kirjaudu.php');
+}
+
+// logout
+if(isset($_POST['but_logout'])){
+    session_destroy();
+    header('Location: kirjaudu.php');
+}
+?>
 <!DOCTYPE html>
 <html>
-	<head>
+	<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Jäsenrekisteri</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -11,7 +25,6 @@
 
 	</head>
 	<body>
-	
 	<!-- Tarkistaa kerran löytyykö tiedostoa, jos ei löydy, lopeta ohjelman suorittaminen, koska sovellus ei toimi ilman -->
 	<?php require_once 'process.php'; ?> 
 
@@ -42,7 +55,7 @@
   <a class="navbar-brand" href="#"><i class="fa fa-database fa-lg"></i></a>
     <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#">Koti</a>
+      <a class="nav-link" href="fpsboosti.fi/index.html">Koti</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Rekisteri</a>
@@ -142,6 +155,9 @@
 			<?php endwhile; ?>
 		</table>
 		</div>
+	    <form method='post' action="">
+            <input type="submit" value="Kirjaudu ulos" name="but_logout">
+        </form>
 		
 
 <footer class="page-footer font-small bg-dark pt-4">
